@@ -4,11 +4,8 @@ import json
 from cat.mad_hatter.decorators import tool, hook
 from cat.utils import log
 
-<<<<<<< HEAD
 cat_instance = None
 
-=======
->>>>>>> ef84990f8bc4df03f009e497b6908c5a0a266b87
 
 def LoadConfiguration():
     with open("./cat/plugins/cc_multilingual/settings.json") as json_file:
@@ -18,7 +15,6 @@ def LoadConfiguration():
 mutlilangual_conf = LoadConfiguration()
 
 
-<<<<<<< HEAD
 @hook(priority=1)
 def init_cat(cat):
     if mutlilangual_conf["lang"] == "auto":
@@ -31,8 +27,6 @@ def init_cat(cat):
     return None
 
 
-=======
->>>>>>> ef84990f8bc4df03f009e497b6908c5a0a266b87
 def translate_text(inputText, source, target):
     if "libretranslate_url" in mutlilangual_conf:
         url = mutlilangual_conf["libretranslate_url"] + "/translate"
@@ -54,7 +48,6 @@ def translate_text(inputText, source, target):
         return inputText
 
 
-<<<<<<< HEAD
 def cc_multilingual_translate(text):
     if "cc_multilingual_lang" in cat_instance.working_memory:
         target = cat_instance.working_memory["cc_multilingual_lang"]
@@ -63,8 +56,6 @@ def cc_multilingual_translate(text):
     return text
 
 
-=======
->>>>>>> ef84990f8bc4df03f009e497b6908c5a0a266b87
 def detect_language(inputText):
     if mutlilangual_conf["lang"] == "auto":
         url = mutlilangual_conf["libretranslate_url"] + "/detect"
@@ -85,27 +76,15 @@ def detect_language(inputText):
 def before_cat_sends_message(message, cat):
     source = "en"
     if "libretranslate_url" in mutlilangual_conf:
-<<<<<<< HEAD
         if "cc_multilingual_lang" in cat.working_memory:
             target = cat.working_memory["cc_multilingual_lang"]
-=======
-        key = "source_lang"
-        if key in cat.working_memory:
-            target = cat.working_memory["source_lang"]
->>>>>>> ef84990f8bc4df03f009e497b6908c5a0a266b87
         else:
             target = "en"
     else:
         target = "en"
-<<<<<<< HEAD
     log("MSG-OUT Starting translation: " + message["content"])
     translated_message = translate_text(message["content"], source, target)
     log("MSG-OUT End translation:" + translated_message)
-=======
-    log("Starting translation: " + message["content"])
-    translated_message = translate_text(message["content"], source, target)
-    log("End translation:" + translated_message)
->>>>>>> ef84990f8bc4df03f009e497b6908c5a0a266b87
     message["content"] = translated_message
     return message
 
@@ -117,7 +96,6 @@ def before_cat_reads_message(user_message_json, cat):
         source = detect_language(user_message_json["text"])
     else:
         source = "en"
-<<<<<<< HEAD
     log("MSG-IN Starting translation: " + user_message_json["text"] + " - lang: " + source)
     translated_message = translate_text(user_message_json["text"], source, target)
     log("MSG-IN End translation:" + translated_message + " - lang: " + target)
@@ -160,11 +138,3 @@ def after_rabbithole_splitted_text(chunks, cat):
         log("End document/url chunk (" + str(i) + "/" + chunlks_len + ") translation from " + source + " to " + target)
         i = i + 1
     return chunks
-=======
-    log("Starting translation: " + user_message_json["text"] + " - lang: " + source)
-    translated_message = translate_text(user_message_json["text"], source, target)
-    log("End translation:" + translated_message + " - lang: " + target)
-    user_message_json["text"] = translated_message
-    cat.working_memory["source_lang"] = source
-    return user_message_json
->>>>>>> ef84990f8bc4df03f009e497b6908c5a0a266b87
