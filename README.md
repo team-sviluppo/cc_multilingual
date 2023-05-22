@@ -4,7 +4,7 @@ The plugin automatically translates user input (prompts, documents, url) from th
 
 ## Installation
 
-- Upgrade cheshire cat to the last version (the plugin need cheshire-cat 0.0.4 to work)
+- Upgrade cheshire cat to the last version (the plugin need cheshire-cat with hooks added on 22-05-2023)
 - Download the cc_multilingual folder into the cheshire-cat/core/cat/plugins one.
 - Edit the settings.json file into cc_multilingual folder with your libretranslate info: url, api_key and language (for language if you set "auto" the plugin try do detect automatically the input language).
 - **IMPORTANT:** Read next section to add libretranslate container to default cheshire-cat installation for a local instance of libretranslate. In this case you don't need modify the libretranslate url and api_key in settings.json.
@@ -54,6 +54,8 @@ services:
       - "0.0.0.0"
       - --port
       - "80"
+      # - --log-config
+      # - ./logger.yml
       - --reload # take away in prod
     restart: unless-stopped
 
