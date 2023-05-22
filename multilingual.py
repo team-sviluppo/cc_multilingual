@@ -16,7 +16,7 @@ mutlilangual_conf = LoadConfiguration()
 
 
 @hook(priority=1)
-def init_cat(cat):
+def after_cat_bootstrap(cat):
     if mutlilangual_conf["lang"] == "auto":
         user_lang = "en"
     else:
