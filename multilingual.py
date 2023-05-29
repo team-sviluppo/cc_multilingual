@@ -2,7 +2,7 @@ import requests
 import json
 
 from cat.mad_hatter.decorators import tool, hook
-from cat.utils import log
+from cat.log import log
 
 cat_instance = None
 
@@ -48,10 +48,13 @@ def translate_text(inputText, source, target):
         return inputText
 
 
-def cc_multilingual_translate(text):
+def cc_multilingual_translate(text,reverse=False):
     if "cc_multilingual_lang" in cat_instance.working_memory:
         target = cat_instance.working_memory["cc_multilingual_lang"]
-        translated_message = translate_text(text, "en", target)
+        if reverse==False:
+            translated_message = translate_text(text, "en", target)
+        else:
+            translated_message = translate_text(text, target, "en")
         text = translated_message
     return text
 
@@ -131,8 +134,8 @@ def after_rabbithole_splitted_text(chunks, cat):
         else:
             source = "en"
         log(
-            "Start document/url chunk (" + str(i) + "/" + chunlks_len + ") translation from " + source + " to " + target
-        )
+                "Start document/url chunk (" + str(i) + "/" + chunlks_len + ") translation from " + source + " to " + target
+            )
         translated_message = translate_text(chunk.page_content, source, target)
         chunk.page_content = translated_message
         log("End document/url chunk (" + str(i) + "/" + chunlks_len + ") translation from " + source + " to " + target)
