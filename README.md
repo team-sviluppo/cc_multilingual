@@ -39,12 +39,16 @@ services:
     container_name: cheshire_cat_core
     depends_on:
       - cheshire-cat-vector-memory
-    env_file:
-      - .env
     environment:
       - PYTHONUNBUFFERED=1
+      - CORE_HOST=${CORE_HOST:-localhost}
+      - CORE_PORT=${CORE_PORT:-1865}
+      - CORE_USE_SECURE_PROTOCOLS=${CORE_USE_SECURE_PROTOCOLS:-}
+      - API_KEY=${API_KEY:-}
+      - LOG_LEVEL=${LOG_LEVEL:-DEBUG}
+      - LOG_LEVEL_DEPENDENCIES=${LOG_LEVEL_DEPENDENCIES:-DEBUG}
     ports:
-      - ${CORE_PORT}:80
+      - ${CORE_PORT:-1865}:80
     volumes:
       - ./core:/app
     command:
