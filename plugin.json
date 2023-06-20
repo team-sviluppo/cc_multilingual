@@ -1,4 +1,10 @@
 {
   "name": "Cheshire Cat Multilingual (cc_multilingual)",
-  "description": "This plugin permit to integrate cheshire cat with libretranslate service to make the cat multilingual"
+  "description": "This plugin permit to integrate cheshire cat with libretranslate service to make the cat multilingual",
+  "author_name": "Team Sviluppo",
+  "author_url": "https://www.teamsviluppo.it/",
+  "plugin_url": "https://github.com/cheshire-cat-ai/core",
+  "tags": "core",
+  "thumb": "",
+  "version": "0.0.1"
 }
